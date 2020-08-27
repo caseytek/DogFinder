@@ -1,0 +1,38 @@
+﻿@using  DogMatchMaker.Models
+@model  DogViewModel
+@{
+    ViewBag.Title = "Details";
+}
+<div class="background text-center">
+    <h2 class="name">@Model.Name</h2>
+    <div class="image-container">
+        <img id="detail-photo" src="~/dogimages/@Model.PhotoPath" />
+    </div>
+    <div id="details-containter">
+        <div>
+            <p><strong>Location:</strong> @Model.CityLocation, @Model.StateLocation</p>
+            <p><strong>Age Group:</strong> @Model.AgeGroup</p>
+            <p><strong>Breed:</strong> @Model.Breed</p>
+            <p><strong>Gender:</strong> @Model.Gender</p>
+        </div>
+        <div >
+            @if (Model.GoodWithKids)
+            {
+                <p><strong> Good with kids</strong></p>
+            }
+            @if (Model.GoodWithCats)
+            {
+                <p><strong> Good with cats</strong></p>
+            }
+            @if (Model.CrateTrained)
+            {
+                <p><strong> Crate trained</strong></p>
+            }
+            @if (Model.PottyTrained)
+            {
+                <p><strong> Potty trained</strong></p>
+            }
+        </div>
+    </div>    
+            <p><strong>Description:</strong></p><p> @Model.Description </p>
+</div>

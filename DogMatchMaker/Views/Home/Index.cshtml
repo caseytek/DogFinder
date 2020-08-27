@@ -1,0 +1,36 @@
+﻿@using DogMatchMaker.Models
+@model List<DogViewModel>
+
+@{
+    ViewBag.Title = "Adoptable Dogs";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div id="index-container">
+    <div id="tile-container" class="grid-item">
+        @foreach (DogViewModel dog in Model)
+        {
+            <div class='dog-tile' id="@dog.Id">
+                <img src="~/dogimages/@dog.PhotoPath" />
+                <h3 class="name"> @dog.Name</h3>
+                <p> @dog.AgeGroup</p>
+                <p>@dog.Breed</p>
+                <p> @dog.CityLocation, @dog.StateLocation</p>
+                @Html.ActionLink("See Details", "Details", new { id = dog.Id })
+            </div>
+        }
+    </div>
+    <div id="map-container">
+        <div class="grid-item" id="map" style="width: 100%; height: 530px;"></div>
+    </div>
+</div>
+    <!-- Make sure api script before main javascript script (in the shared layout)--> 
+<script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+<link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
+<script>
+    //Passes the json data from ViewData to a function in a separate file
+    let dogs = @Html.Raw(ViewData["jsonDogs"]);
+    $(document).ready(function () {
+    updateMap(dogs);
+    })
+</script>
+
