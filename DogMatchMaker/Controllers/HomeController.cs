@@ -1,24 +1,30 @@
 ﻿using DogMatchMaker.Data;
-using DogMatchMaker.Models;
+using DogMatchMaker.UI.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DogMatchMaker.Controllers
+namespace DogMatchMaker.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private static DogRepository dogRepository = new DogRepository();
+        private static DogRepository dogRepository;
+
+        public HomeController()
+        {
+
+            dogRepository = new DogRepository("DogMatchMaker");
+        }
         public ActionResult Index()
         {
-            List<DogViewModel> dogs = dogRepository.GetAllDogs();
-            ViewData["jsonDogs"] = JsonConvert.SerializeObject(dogs);
-            Console.WriteLine(ViewData["jsonDogs"]);
-            return View(dogs);
+            List<DogDto> dogDtos = dogRepository.LoadRecords<DogDto>("Dog");
+            List<DogViewModel> dogModels = new List<DogViewModel>();
+            dogDtos.ForEach(d => { dogModels.Add(new DogViewModel(d)); });
+            ViewData["jsonDogs"] = JsonConvert.SerializeObject(dogModels);
+            return View(dogModels);
         }
 
         public ActionResult Home()
@@ -26,20 +32,25 @@ namespace DogMatchMaker.Controllers
             return View();
         }
 
-        public ActionResult Details(int id)
-        {
-            DogViewModel dog = dogRepository.GetDogById(id);
-            if(dog != null)
-            {
-                return View(dog);
-            } else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    DogViewModel dog = new DogViewModel(dogRepository.GetGogbyId(id));
+        //    if (dog != null)
+        //    {
+        //        return View(dog);
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("index", "home");
+        //    }
+        //}
 
         public ActionResult Create()
         {
+            List<string> dogColors = dogRepository.GetDogColors();
+            List<string> dogBreeds = dogRepository.GetDogBreedList();
+            ViewData["dogColors"] = dogColors;
+            ViewData["dogBreeds"] = dogBreeds;
             return View();
         }
 
@@ -60,7 +71,7 @@ namespace DogMatchMaker.Controllers
                     //Only accepts jpeg, jpg, and png
                     if (file.ContentType == "image/jpeg" || file.ContentType == "image/png" || file.ContentType == "image/jpg")
                     {
-                        model.Id = dogRepository.Count;
+                        //model.Id = dogRepository.Count;
 
                         //get full path
                         string path = Path.Combine(Server.MapPath("~/dogimages"),
@@ -89,11 +100,19 @@ namespace DogMatchMaker.Controllers
 
             if (ModelState.IsValid)
             {
-                dogRepository.Add(model);
+                if(model.Breeds != null)
+                {
+                    model.Breed = "Mixed Breed";
+                }
+                //dogRepository.Add(model);
                 return RedirectToAction("Index", "Home");
             }
             else
             {
+                List<string> dogColors = DogRepository.DogColors;
+                List<string> dogBreeds = DogRepository.DogBreeds;
+                ViewData["dogColors"] = dogColors;
+                ViewData["dogBreeds"] = dogBreeds;
                 return View(model);
             }
         }

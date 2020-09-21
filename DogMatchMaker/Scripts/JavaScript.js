@@ -1,31 +1,68 @@
-﻿function loadFile(event) {
+﻿let srcIdStartIndex = 61;
+
+
+
+function loadFile(event) {
 
     let image = document.getElementById('image-to-upload');
     $(image).show();
     image.src = URL.createObjectURL(event.target.files[0]);
-}
-/*
+    }
+
+$("input#zip").keyup(function () {
+
+    var zipcode = $(this).val();
+    let streetAddress = $('#street-address').val()
+    if (zipcode.length && zipcode.length == 5 && streetAddress.length) {
+        L.mapquest.key = 'mMnXGCQhZquPUCwudUmc4aAzCDyOmJ2m';
+        let dogLocation = { street: streetAddress, postalCode: zipcode };
+        L.mapquest.geocoding().geocode(dogLocation, handleResults);
+    };
+});
+
+
+  /*check that zip and street address is valid. If valid, fill in state and city */
+    function handleResults(error, response) {
+        let state = response.results[0].locations[0].adminArea3;
+        let city = response.results[0].locations[0].adminArea5;
+        let zip = response.results[0].locations[0].postalCode;
+        if (city != '' && state != '' && zip != '' && $('#zip').val() == zip.substring(0, 5)) {
+   
+            $('#city').val(city);
+            $('#state').val(state);
+            $('p.zip-error').addClass('hidden');
+            $('.auto-fill').removeClass('hidden');
+        } else {
+            $('.auto-fill').addClass('hidden');
+            $('p.zip-error').removeClass('hidden');
+        }
+    };
+
+/* 
+ * Trying to get dogtile to highlight when hovering over map marker, doesnt work, event not triggering
 document.getElementById('map').onload = (function () {
-    $('img.leaflet-marker-icon').click(function () {
-        let id = this.src.substring(61);
+    $('img.leaflet-marker-icon').hover(function () {
+        let id = this.src.substring(srcIdStartIndex);
         let dogElement = document.getElementById(id);
         $(dogElement).addClass('hover');
     });
 
     $('img.leaflet-marker-icon').mouseleave(function () {
-        let id = this.src.substring(61);
+        let id = this.src.substring(srcIdStartIndex);
         let dogElement = document.getElementById(id);
         $(dogElement).removeClass('hover');
     });
-}); */
-
+});
+*/
 function updateMap(dogJson) {
 
     //Get an array of the locations in the right format for geocode argument
     let dogLocations = [];
     for (let i = 0; i < dogJson.length; i++)
     {
-        dogLocations.push(dogJson[i].StreetAddress + ', ' + dogJson[i].Zipcode);
+        let dogLocation = { street: dogJson[i].StreetAddress, postalCode: dogJson[i].Zipcode };
+
+        dogLocations.push(dogLocation);
     }
     L.mapquest.key = 'mMnXGCQhZquPUCwudUmc4aAzCDyOmJ2m';
 
@@ -92,20 +129,15 @@ let marker;
 $('.dog-tile').hover(function () {
     let markers = $('.leaflet-marker-icon');
     for (let i = 0; i < markers.length; i++) {
-        if (markers[i].src.substring(61) == $(this).attr('id')) {
+        if (markers[i].src.substring(srcIdStartIndex) == $(this).attr('id')) {
             marker = markers[i];
             if (!($('div.leaflet-container a').html().trim() == $(this).find('h3').html().trim())) {
                 marker.click();
             } 
         }
     }
-
-
-    /*
-     * somehow stays clicked now. Going to leave this for now.
-    $('.dog-tile').mouseleave(function () {
-        marker.click();
-    });
-    */
 });
+
+
+
 

@@ -1,4 +1,4 @@
-﻿@using  DogMatchMaker.Models
+﻿@using  DogMatchMaker.UI.Models
 @model  DogViewModel
 @{
     ViewBag.Title = "Details";
@@ -12,10 +12,20 @@
         <div>
             <p><strong>Location:</strong> @Model.CityLocation, @Model.StateLocation</p>
             <p><strong>Age Group:</strong> @Model.AgeGroup</p>
+                <p><strong>Gender:</strong> @Model.Gender</p>
+            </div>
+        <div>
             <p><strong>Breed:</strong> @Model.Breed</p>
-            <p><strong>Gender:</strong> @Model.Gender</p>
-        </div>
-        <div >
+            @if (Model.Breeds != null)
+            {
+                <p><strong>Breeds in Mix:</strong></p>
+                <ul>
+                    @foreach (string breed in Model.Breeds)
+                    {
+                        <li> @breed </li>
+                    }
+                </ul>
+            }
             @if (Model.GoodWithKids)
             {
                 <p><strong> Good with kids</strong></p>

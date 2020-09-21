@@ -1,0 +1,9 @@
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\bin\Debug\CrossCutting.dll
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\bin\Debug\CrossCutting.pdb
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\bin\Debug\MongoDB.Bson.dll
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\bin\Debug\MongoDB.Bson.xml
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.csprojAssemblyReference.cache
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.csproj.CoreCompileInputs.cache
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.csproj.CopyComplete
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.dll
+C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.pdb
