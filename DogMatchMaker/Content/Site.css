@@ -121,15 +121,16 @@ input[type="checkbox"]{
     height: 20px;
 }
 
-#details-containter {
+#details-container {
     display: flex;
     flex-wrap: wrap;
     width: auto;
     justify-content: center;
 }
-#details-containter>div {
+#details-container>div {
     margin: 10px;
     text-align: left;
+   margin: 10px;
 }
 h2.lobster{
     text-align: center;
@@ -192,4 +193,38 @@ a{
 .action-link {
     position: relative;
     top: -5px;
+}
+.details-popup {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+.exit {
+    left: 356px;
+    position: relative;
+    bottom: 15px;
+    width: 19px;
+    background: darkgray;
+    color: white;
+    border-radius: 4px;
+}
+
+.exit:hover {
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+.details-popup > div {
+    text-align: center;
+    width: 400px;
+    margin: 70px 30% 0 30%;
+    font-family: Roboto
 }

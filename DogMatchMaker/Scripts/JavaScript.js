@@ -138,6 +138,10 @@ $('.dog-tile').hover(function () {
     }
 });
 
+$(document).on('click', '.exit', function () {
+    $("#dog-details").empty();
+});
+
 
 
 

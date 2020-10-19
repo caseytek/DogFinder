@@ -1,0 +1,28 @@
+﻿@using DogMatchMaker.UI.Models
+@model DogViewModel
+
+@{ 
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "dog-details"
+    };
+    //HtmlHelper.UnobtrusiveJavaScriptEnabled = true; 
+}
+
+<div class='dog-tile' id="@Model.Id">
+    <img src="~/dogimages/@Model.PhotoPath" />
+    <h3 class="name"> @Model.Name</h3>
+    <p> @Model.AgeGroup</p>
+    <p>@Model.Breed</p>
+    <p> @Model.CityLocation, @Model.StateLocation</p>
+    <div class="action-link">
+        @using (Ajax.BeginForm("ViewDogDetails", "Home", ajaxOptions))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            <input type="submit" id="submit-button" value="Display Details"/>
+        }
+    </div>
+</div>

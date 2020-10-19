@@ -9,16 +9,8 @@
     <div id="tile-container" class="grid-item">
         @foreach (DogViewModel dog in Model)
         {
-            <div class='dog-tile' id="@dog.Id">
-                <img src="~/dogimages/@dog.PhotoPath" />
-                <h3 class="name"> @dog.Name</h3>
-                <p> @dog.AgeGroup</p>
-                <p>@dog.Breed</p>
-                <p> @dog.CityLocation, @dog.StateLocation</p>
-                <div class="action-link">
-                @Html.ActionLink("See Details", "Details", new { id = dog.Id})
-                </div>
-            </div>
+            Html.RenderPartial("_DisplayDogPartial", dog);
+            <div id="dog-details"></div>
         }
     </div>
     <div id="map-container">
@@ -32,7 +24,7 @@
     //raw so it leaves the colons alone
     let dogs = @Html.Raw(ViewData["jsonDogs"]);
     $(document).ready(function () {
-    updateMap(dogs);
-    })
+        updateMap(dogs);
+    });
 </script>
 

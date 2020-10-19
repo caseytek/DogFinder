@@ -12,7 +12,7 @@ namespace DogMatchMaker.UI.Models
 
         public DogViewModel(DogDto dog)
         {
-            Id = dog.Id.ToString();
+            Id = dog.Id;
             Name = dog.Name;
             Birthday = dog.Birthday;
             Gender = dog.Gender;
@@ -29,8 +29,11 @@ namespace DogMatchMaker.UI.Models
             CityLocation = dog.CityLocation;
             StreetAddress = dog.StreetAddress;
         }
+        public DogViewModel()
+        {
 
-        public string Id { get; set; }
+        }
+        public Guid Id { get; set; }
         [Required]
         [Display(Name = "Dog's Name")]
         public string Name { get; set; }

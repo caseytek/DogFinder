@@ -32,18 +32,20 @@ namespace DogMatchMaker.UI.Controllers
             return View();
         }
 
-        //public ActionResult Details(int id)
-        //{
-        //    DogViewModel dog = new DogViewModel(dogRepository.GetGogbyId(id));
-        //    if (dog != null)
-        //    {
-        //        return View(dog);
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("index", "home");
-        //    }
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ViewDogDetails(DogViewModel model)
+        {
+            DogViewModel dog = new DogViewModel(dogRepository.LoadRecordById<DogDto>("Dog", model.Id));
+            if (dog != null)
+            {
+                return PartialView( "_DogDetailsPartial", dog);
+            }
+            else
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
 
         public ActionResult Create()
         {
