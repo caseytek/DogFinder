@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DogMatchMaker</RootNamespace>
     <AssemblyName>DogMatchMaker</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,16 +52,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -102,6 +101,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -134,21 +134,25 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Chosen\chosen-sprite.png" />
     <Content Include="Content\Chosen\chosen.min.css" />
-    <Content Include="dogimages\buck2.jpg" />
-    <Content Include="dogimages\cooper3.jpg" />
+    <Content Include="dogimages\bubbles.jpg" />
+    <Content Include="dogimages\buck.jpg" />
+    <Content Include="dogimages\cooper.jpg" />
+    <Content Include="dogimages\dog-underwater.jpg" />
     <Content Include="dogimages\dogicon.png" />
-    <Content Include="dogimages\frosty7.jpg" />
-    <Content Include="dogimages\pickles5.jpg" />
+    <Content Include="dogimages\frosty.jpg" />
+    <Content Include="dogimages\pickles.jpg" />
     <Content Include="dogimages\puppy-background.jpg" />
-    <Content Include="dogimages\rex4.jpg" />
-    <Content Include="dogimages\tucker1.jpg" />
-    <Content Include="dogimages\wanda6.jpg" />
+    <Content Include="dogimages\rex.jpg" />
+    <Content Include="dogimages\roo.jpg" />
+    <Content Include="dogimages\tucker.jpg" />
+    <Content Include="dogimages\wanda.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\DogFinder - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\CreateScript.js" />
@@ -182,6 +186,7 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Shared\_DisplayDogPartial.cshtml" />
     <Content Include="Views\Shared\_DogDetailsPartial.cshtml" />
+    <Content Include="Views\Home\Quiz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

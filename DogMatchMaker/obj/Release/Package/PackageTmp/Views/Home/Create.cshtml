@@ -1,0 +1,175 @@
+﻿@model DogMatchMaker.UI.Models.DogViewModel
+@{
+    ViewBag.Title = "Create";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="background" id="form-container">
+    <h2 class="lobster">Post a New Rescue</h2>
+
+
+    @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "add-pet-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Birthday, null, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @{
+                        IEnumerable<string> genders = (
+                               IEnumerable<string>)new List<string> { "Female", "Male" };
+                    }
+                    @Html.DropDownListFor(model => model.Gender, new SelectList(genders), new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group"  id="breed-selector">
+                @Html.LabelFor(model => model.Breed, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @{
+                        IEnumerable<string> dogBreeds = (
+                            IEnumerable<string>)ViewData["dogBreeds"];
+                    }
+                    @Html.DropDownListFor(model => model.Breed, new SelectList(dogBreeds),
+                        new { @class = "form-control chosen-select", id = "dog-breed" })
+                    @Html.ValidationMessageFor(model => model.Breed, "", new { @class = "text-danger" })
+                    <button type="button" class="btn btn-default" onclick="ToggleMixedBreedSelection()"> Select Multiple Breeds </button>
+                </div>
+            </div>
+            <div class="form-group hidden" id="mixed-breed-selector">
+                @Html.LabelFor(model => model.Breeds, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Breeds, new MultiSelectList(dogBreeds),
+                        new { @class = "form-control chosen-select", id = "dog-breeds", multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.Breeds, "", new { @class = "text-danger" })
+                    <button type="button" class="btn btn-default" onclick="ToggleBreedSelection()"> Go Back </button>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @{
+                        IEnumerable<string> dogColors = (
+                               IEnumerable<string>)ViewData["dogColors"];
+                    }
+                    @Html.DropDownListFor(model => model.Color, new SelectList(dogColors),
+                   new { @class = "form-control chosen-select", @id = "dog-color"})
+                    @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GoodWithKids, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GoodWithKids, null, new { htmlAttributes = new { @class = "form-control checkbox-inline" } })
+                    @Html.ValidationMessageFor(model => model.GoodWithKids, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.GoodWithCats, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GoodWithCats, new { htmlAttributes = new { @class = "form-control checkbox-inline" } })
+                    @Html.ValidationMessageFor(model => model.GoodWithCats, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PottyTrained, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PottyTrained, new { htmlAttributes = new { @class = "form-control checkbox-inline" } })
+                    @Html.ValidationMessageFor(model => model.PottyTrained, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CrateTrained, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CrateTrained, new { htmlAttributes = new { @class = "form-control checkbox-inline" } })
+                    @Html.ValidationMessageFor(model => model.CrateTrained, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StreetAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StreetAddress, new { htmlAttributes = new { @class = "form-control", @id = "street-address" } })
+                    @Html.ValidationMessageFor(model => model.StreetAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Zipcode, new { htmlAttributes = new { @class = "form-control", @maxlength = "5", @pattern = "[0-9]*", @id = "zip" } })
+                    @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
+                    <p class="zip-error hidden text-danger">Not a valid address</p>
+                </div>
+            </div>
+            <div class="form-group auto-fill hidden">
+                @Html.LabelFor(model => model.CityLocation, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CityLocation, new { htmlAttributes = new { @class = "form-control", @id = "city", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.CityLocation, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group auto-fill hidden">
+                @Html.LabelFor(model => model.StateLocation, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StateLocation, new { htmlAttributes = new { @class = "form-control", @id = "state", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.StateLocation, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ContactName, null, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContactName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContactEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="file">Upload a Profile Picture(JPEG, JPG, or PNG accepted)</label>
+                <div class="col-md-10">
+                    <input onchange="loadFile(event)" class="form-control" type="file" name="file" id="file" accept="image/jpeg, image/png" /><br><br>
+                    <img id="image-to-upload" alt="Your dog's image" />
+                    <p class="text-danger"> @ViewBag.Message </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default submit-button" />
+                </div>
+            </div>
+        </div>
+    }
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+    <script src="~/Scripts/CreateScript.js"></script>
+</div>

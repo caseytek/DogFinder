@@ -1,0 +1,9 @@
+C:\Code\PersonalRepos\DogFinder\CrossCutting\bin\Release\CrossCutting.dll
+C:\Code\PersonalRepos\DogFinder\CrossCutting\bin\Release\CrossCutting.pdb
+C:\Code\PersonalRepos\DogFinder\CrossCutting\bin\Release\MongoDB.Bson.dll
+C:\Code\PersonalRepos\DogFinder\CrossCutting\bin\Release\MongoDB.Bson.xml
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Release\CrossCutting.csprojAssemblyReference.cache
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Release\CrossCutting.csproj.CoreCompileInputs.cache
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Release\CrossCutting.csproj.CopyComplete
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Release\CrossCutting.dll
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Release\CrossCutting.pdb

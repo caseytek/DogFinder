@@ -32,6 +32,11 @@ namespace DogMatchMaker.UI.Controllers
             return View();
         }
 
+        public ActionResult Quiz()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ViewDogDetails(DogViewModel model)
