@@ -15,7 +15,6 @@ namespace DogMatchMaker.UI.Controllers
 
         public HomeController()
         {
-
             dogRepository = new DogRepository("DogMatchMaker");
         }
         public ActionResult Index()
@@ -54,10 +53,8 @@ namespace DogMatchMaker.UI.Controllers
 
         public ActionResult Create()
         {
-            List<string> dogColors = dogRepository.GetDogColors();
-            List<string> dogBreeds = dogRepository.GetDogBreedList();
-            ViewData["dogColors"] = dogColors;
-            ViewData["dogBreeds"] = dogBreeds;
+            ViewData["dogColors"] = dogRepository.GetDogColors();
+            ViewData["dogBreeds"] = dogRepository.GetDogBreedList();
             return View();
         }
 
@@ -97,13 +94,10 @@ namespace DogMatchMaker.UI.Controllers
                 {
                     ViewBag.Message = ex.Message;
                     //If exception was thrown, return view with error message
+                    ViewData["dogColors"] = dogRepository.GetDogColors();
+                    ViewData["dogBreeds"] = dogRepository.GetDogBreedList();
                     return View(model);
                 }
-            else
-            {
-                //If file was empty then this message will be displayed if model is not valid
-                ViewBag.Message = "You have not specified a file.";
-            }
 
             if (ModelState.IsValid)
             {
@@ -111,17 +105,43 @@ namespace DogMatchMaker.UI.Controllers
                 {
                     model.Breed = "Mixed Breed";
                 }
-                //dogRepository.Add(model);
+
+                dogRepository.InsertRecord<DogDto>("Dog", MapModelToDto(model));
+
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                List<string> dogColors = DogRepository.DogColors;
-                List<string> dogBreeds = DogRepository.DogBreeds;
-                ViewData["dogColors"] = dogColors;
-                ViewData["dogBreeds"] = dogBreeds;
+                //Repopulate color and breed list for view
+                ViewData["dogColors"] = dogRepository.GetDogColors();
+                ViewData["dogBreeds"] = dogRepository.GetDogBreedList();
                 return View(model);
             }
+        }
+
+        private DogDto MapModelToDto(DogViewModel model)
+        {
+           return new DogDto()
+            {
+                Birthday = model.Birthday,
+                Breed = model.Breed,
+                Breeds = model.Breeds,
+                CityLocation = model.CityLocation,
+                Color = model.Color,
+                ContactEmail = model.ContactEmail,
+                ContactName = model.ContactName,
+                CrateTrained = model.CrateTrained,
+                Description = model.Description,
+                Gender = model.Gender,
+                GoodWithCats = model.GoodWithCats,
+                GoodWithKids = model.GoodWithKids,
+                Id = model.Id,
+                Name = model.Name,
+                PottyTrained = model.PottyTrained,
+                StateLocation = model.StateLocation,
+                StreetAddress = model.StreetAddress,
+                Zipcode = model.Zipcode
+            };
         }
     }
 }

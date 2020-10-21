@@ -9,7 +9,6 @@ function ToggleMixedBreedSelection() {
             $(breed).click();
         }
     }
-   /* $('#breed-selector .chosen-single>span').html('Mixed Breed');*/
 };
 
 function ToggleBreedSelection() {

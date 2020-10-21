@@ -17,7 +17,9 @@ namespace DogMatchMaker.Data
 
         public DogRepository(string database)
         {
-            var client = new MongoClient("mongodb+srv://tekcasey:mongodb@caseyteknology.bl2ur.azure.mongodb.net/DogMatchMaker?retryWrites=true&w=majority");
+            var client = new MongoClient(
+                "mongodb+srv://tekcasey:mongodb@caseyteknology.bl2ur.azure.mongodb.net/"
+                + "DogMatchMaker?retryWrites=true&w=majority");
             db = client.GetDatabase(database);
 
         }
@@ -85,6 +87,4 @@ namespace DogMatchMaker.Data
             return dogBreeds;
         }
     }
-
-
 }

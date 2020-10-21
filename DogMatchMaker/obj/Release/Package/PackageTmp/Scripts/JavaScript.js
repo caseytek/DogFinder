@@ -1,7 +1,5 @@
 ﻿let srcIdStartIndex = 61;
 
-
-
 function loadFile(event) {
 
     let image = document.getElementById('image-to-upload');
@@ -38,22 +36,6 @@ $("input#zip").keyup(function () {
         }
     };
 
-/* 
- * Trying to get dogtile to highlight when hovering over map marker, doesnt work, event not triggering
-document.getElementById('map').onload = (function () {
-    $('img.leaflet-marker-icon').hover(function () {
-        let id = this.src.substring(srcIdStartIndex);
-        let dogElement = document.getElementById(id);
-        $(dogElement).addClass('hover');
-    });
-
-    $('img.leaflet-marker-icon').mouseleave(function () {
-        let id = this.src.substring(srcIdStartIndex);
-        let dogElement = document.getElementById(id);
-        $(dogElement).removeClass('hover');
-    });
-});
-*/
 function updateMap(dogJson) {
 
     //Get an array of the locations in the right format for geocode argument
@@ -103,15 +85,8 @@ function updateMap(dogJson) {
 
             // Create a marker for each location
             var marker = L.marker(locationLatLng, { icon: thisIcon })
-                .on('click', function (e) { /*
-                 * 
-                 * Add click functionality here to highlight dogtile,
-                 * following doesnt work: doesnt recognize this because 
-                 * it is firing before the event happens to set up
-                    let id = this.src.substring(61);
-                    let dogElement = document.getElementById(id);
-                    $(dogElement).addClass('hover'); */
-                })
+             /*Will remove once confirmed no effect   .on('click', function (e) { 
+                }) */ 
                 .bindPopup('<a href=' + 'http://localhost:56830/Home/Details/' + dogJson[i].Id + '>'
                     /*Had to add a <br> and <span>'s because <p> without <br> adds an extra space*/
                 + dogJson[i].Name + '</a></br><span class="location">' + dogJson[i].CityLocation + ', ' +
@@ -122,7 +97,6 @@ function updateMap(dogJson) {
         return L.featureGroup(group);
     }
 }
-
 
 let marker;
 

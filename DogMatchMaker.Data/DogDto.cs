@@ -9,6 +9,12 @@ namespace DogMatchMaker.Data
 {
     public class DogDto
     {
+
+        public DogDto()
+        {
+
+        }
+
         [BsonId]
         public Guid Id { get; set; }
         public string Name { get; set; }

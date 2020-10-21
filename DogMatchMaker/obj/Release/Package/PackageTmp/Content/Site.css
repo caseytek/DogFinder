@@ -29,10 +29,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
 .jumbotron{
     background-color: darkseagreen;
     margin-top: 30px;
 }
+
 .jumbotron> h1{
     margin-bottom: 20px;
 }
@@ -49,7 +51,6 @@ textarea {
     height: 40px;
     width: 40px;
 }
-
 
 #footer {
     position: fixed;
@@ -127,7 +128,7 @@ input[type="checkbox"]{
     width: auto;
     justify-content: center;
 }
-#details-container>div {
+#details-container > div {
     margin: 10px;
     text-align: left;
    margin: 10px;
@@ -152,7 +153,8 @@ h2.lobster{
     margin-top: 15px;
 }
 
-.dog-tile:hover, .hover {
+.dog-tile:hover,
+.hover {
     /* highlight feature*/
     outline: none;
     border-color: #9ecaed;
@@ -174,7 +176,7 @@ div.leaflet-popup-content-wrapper {
     font-family: "Lobster", cursive;
     font-size: 16px;
 }
-/* HAVE TO ADD DIV HERE FOR SOME REASON*/
+
 div.leaflet-popup-tip {
     /* changes the color of the popup tip*/
     background-color: lightgoldenrodyellow;
