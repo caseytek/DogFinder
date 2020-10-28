@@ -7,3 +7,12 @@ C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.csproj
 C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.csproj.CopyComplete
 C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.dll
 C:\Code\extraChallenges\DogMatchMaker\CrossCutting\obj\Debug\CrossCutting.pdb
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Debug\CrossCutting.csprojAssemblyReference.cache
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Debug\CrossCutting.csproj.CoreCompileInputs.cache
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Debug\CrossCutting.dll
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Debug\CrossCutting.pdb
+C:\Code\PersonalRepos\DogFinder\CrossCutting\bin\Debug\CrossCutting.dll
+C:\Code\PersonalRepos\DogFinder\CrossCutting\bin\Debug\CrossCutting.pdb
+C:\Code\PersonalRepos\DogFinder\CrossCutting\bin\Debug\MongoDB.Bson.dll
+C:\Code\PersonalRepos\DogFinder\CrossCutting\bin\Debug\MongoDB.Bson.xml
+C:\Code\PersonalRepos\DogFinder\CrossCutting\obj\Debug\CrossCutting.csproj.CopyComplete

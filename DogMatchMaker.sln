@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogMatchMaker.Data", "DogMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting", "CrossCutting\CrossCutting.csproj", "{C72AB4A1-DDF4-43DC-BBA7-A98337DBB272}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogMatchMaker.Orchestrator", "DogMatchMaker.Orchestrator\DogMatchMaker.Orchestrator.csproj", "{FDF58181-EC12-4076-8579-424972A1C310}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C72AB4A1-DDF4-43DC-BBA7-A98337DBB272}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C72AB4A1-DDF4-43DC-BBA7-A98337DBB272}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C72AB4A1-DDF4-43DC-BBA7-A98337DBB272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDF58181-EC12-4076-8579-424972A1C310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDF58181-EC12-4076-8579-424972A1C310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDF58181-EC12-4076-8579-424972A1C310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDF58181-EC12-4076-8579-424972A1C310}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

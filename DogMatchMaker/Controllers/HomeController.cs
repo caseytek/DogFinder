@@ -1,9 +1,10 @@
-﻿using DogMatchMaker.Data;
+﻿using CrossCutting;
+using DogMatchMaker.Orchestrator;
 using DogMatchMaker.UI.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,17 +12,15 @@ namespace DogMatchMaker.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private static DogRepository dogRepository;
-
-        public HomeController()
+        private IHomeOrchestrator homeOrchestrator;
+        public HomeController(IHomeOrchestrator homeOrchestrator)
         {
-            dogRepository = new DogRepository("DogMatchMaker");
+            this.homeOrchestrator = homeOrchestrator;
         }
         public ActionResult Index()
         {
-            List<DogDto> dogDtos = dogRepository.LoadRecords<DogDto>("Dog");
-            List<DogViewModel> dogModels = new List<DogViewModel>();
-            dogDtos.ForEach(d => { dogModels.Add(new DogViewModel(d)); });
+            List<DogViewModel> dogModels = homeOrchestrator.GetAllDogs()
+                                        .Select(d => { return new DogViewModel(d); }).ToList();
             ViewData["jsonDogs"] = JsonConvert.SerializeObject(dogModels);
             return View(dogModels);
         }
@@ -40,10 +39,10 @@ namespace DogMatchMaker.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ViewDogDetails(DogViewModel model)
         {
-            DogViewModel dog = new DogViewModel(dogRepository.LoadRecordById<DogDto>("Dog", model.Id));
+            DogViewModel dog = new DogViewModel(homeOrchestrator.GetDogById(model.Id));
             if (dog != null)
             {
-                return PartialView( "_DogDetailsPartial", dog);
+                return PartialView("_DogDetailsPartial", dog);
             }
             else
             {
@@ -53,8 +52,8 @@ namespace DogMatchMaker.UI.Controllers
 
         public ActionResult Create()
         {
-            ViewData["dogColors"] = dogRepository.GetDogColors();
-            ViewData["dogBreeds"] = dogRepository.GetDogBreedList();
+            ViewData["dogColors"] = homeOrchestrator.GetDogColors();
+            ViewData["dogBreeds"] = homeOrchestrator.GetDogBreeds();
             return View();
         }
 
@@ -62,66 +61,41 @@ namespace DogMatchMaker.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(DogViewModel model, HttpPostedFileBase file)
         {
-            if (file != null && file.ContentLength > 0)
-                try
-                {
-                    var img = System.Drawing.Image.FromStream(file.InputStream, true, true);
-                    int w = img.Width;
-                    int h = img.Height;
-                    if(h < 200 || w < 200)
-                    {
-                        throw new Exception(message: "Image is too small");
-                    }
-                    //Only accepts jpeg, jpg, and png
-                    if (file.ContentType == "image/jpeg" || file.ContentType == "image/png" || file.ContentType == "image/jpg")
-                    {
-                        //model.Id = dogRepository.Count;
-
-                        //get full path
-                        string path = Path.Combine(Server.MapPath("~/dogimages"),
-                                                   model.PhotoPath);
-                        //save the uploaded file to this path
-                        file.SaveAs(path);
-                        ViewBag.Message = "File uploaded successfully";
-                    }
-                    else
-                    {
-                        //If file is the wrong type, throw exception
-                        throw new Exception(message: "File type not accepted");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Message = ex.Message;
-                    //If exception was thrown, return view with error message
-                    ViewData["dogColors"] = dogRepository.GetDogColors();
-                    ViewData["dogBreeds"] = dogRepository.GetDogBreedList();
-                    return View(model);
-                }
-
+            bool saveSuccess = true;
             if (ModelState.IsValid)
             {
-                if(model.Breeds != null)
+                string path = Path.Combine(Server.MapPath("~/dogimages"),
+                                               model.PhotoPath);
+
+                List<string> errors = homeOrchestrator.ValidateDogPhoto(file, path);
+
+                if (errors.Count > 0)
                 {
-                    model.Breed = "Mixed Breed";
+                    errors.ForEach(e => ModelState.AddModelError(string.Empty, e));
+                    saveSuccess = false;
                 }
+                else
+                {
+                    saveSuccess = homeOrchestrator.InsertDog(MapModelToDto(model));
+                }
+            }
 
-                dogRepository.InsertRecord<DogDto>("Dog", MapModelToDto(model));
-
+            if (saveSuccess)
+            {
                 return RedirectToAction("Index", "Home");
             }
             else
             {
                 //Repopulate color and breed list for view
-                ViewData["dogColors"] = dogRepository.GetDogColors();
-                ViewData["dogBreeds"] = dogRepository.GetDogBreedList();
+                ViewData["dogColors"] = homeOrchestrator.GetDogColors();
+                ViewData["dogBreeds"] = homeOrchestrator.GetDogBreeds();
                 return View(model);
             }
         }
 
         private DogDto MapModelToDto(DogViewModel model)
         {
-           return new DogDto()
+            return new DogDto()
             {
                 Birthday = model.Birthday,
                 Breed = model.Breed,

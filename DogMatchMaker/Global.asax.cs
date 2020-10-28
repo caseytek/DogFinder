@@ -8,12 +8,12 @@ namespace DogMatchMaker
     {
         protected void Application_Start()
         {
-            //Allows google fonts to work
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = false;    //Allows google fonts to work
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            UnityConfig.RegisterComponents();                           // <----- Add this line
         }
     }
 }

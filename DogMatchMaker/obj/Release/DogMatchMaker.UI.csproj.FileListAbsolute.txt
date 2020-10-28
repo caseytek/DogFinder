@@ -99,3 +99,17 @@ C:\Code\PersonalRepos\DogFinder\DogMatchMaker\obj\Release\DogMatchMaker.UI.cspro
 C:\Code\PersonalRepos\DogFinder\DogMatchMaker\obj\Release\DogMatchMaker.UI.csproj.CopyComplete
 C:\Code\PersonalRepos\DogFinder\DogMatchMaker\obj\Release\DogMatchMaker.dll
 C:\Code\PersonalRepos\DogFinder\DogMatchMaker\obj\Release\DogMatchMaker.pdb
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\DogMatchMaker.Orchestrator.dll
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\ImageProcessor.dll
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\System.ValueTuple.dll
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\DogMatchMaker.Orchestrator.pdb
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\DogMatchMaker.Orchestrator.dll.config
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\ImageProcessor.xml
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\System.ValueTuple.xml
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\Unity.Abstractions.dll
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\Unity.Container.dll
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\Unity.Mvc5.dll
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\Unity.Abstractions.pdb
+C:\Code\PersonalRepos\DogFinder\DogMatchMaker\bin\Unity.Container.pdb

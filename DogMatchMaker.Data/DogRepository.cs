@@ -5,23 +5,24 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace DogMatchMaker.Data
 {
-    public class DogRepository
+    public class DogRepository : IDogRepository
     {
         private IMongoDatabase db;
-        public static List<string> DogColors { get; set; }
-        public static List<string> DogBreeds { get; set; }
+        public IEnumerable<string> DogColors { get; set; }
+        public IEnumerable<string> DogBreeds { get; set; }
 
-        public DogRepository(string database)
+        public DogRepository(string databaseName)
         {
             var client = new MongoClient(
                 "mongodb+srv://tekcasey:mongodb@caseyteknology.bl2ur.azure.mongodb.net/"
                 + "DogMatchMaker?retryWrites=true&w=majority");
-            db = client.GetDatabase(database);
-
+            db = client.GetDatabase(databaseName);
+            DogColors = LoadRecords<DogColor>("DogColors").Select(c => { return c.Color; });
+            DogBreeds = GetDogBreedList();
         }
 
         public T LoadRecordById<T>(string table, Guid id)
@@ -38,26 +39,11 @@ namespace DogMatchMaker.Data
             collection.InsertOne(record);
         }
 
-        public List<T> LoadRecords<T>(string table)
+        public IEnumerable<T> LoadRecords<T>(string table)
         {
             var collection = db.GetCollection<T>(table);
             return collection.Find(new BsonDocument()).ToList();
 
-        }
-
-        public List<DogDto> LoadAllDogs(string table)
-        {
-            var collection = db.GetCollection<DogDto>(table);
-            return collection.Find(new BsonDocument()).ToList();
-        }
-
-        public List<string> GetDogColors()
-        {
-            var collection = db.GetCollection<DogColor>("DogColors");
-            List<DogColor> newCollection = collection.Find(new BsonDocument()).ToList();
-            List<string> dogColors = new List<string>();
-            newCollection.ForEach(c => { dogColors.Add(c.Color); });
-            return dogColors;
         }
 
         public List<string> GetDogBreedList()

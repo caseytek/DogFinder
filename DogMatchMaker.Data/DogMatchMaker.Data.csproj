@@ -100,8 +100,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DogDto.cs" />
     <Compile Include="DogRepository.cs" />
+    <Compile Include="IDogRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\Web\HttpContext.cs" />
   </ItemGroup>
